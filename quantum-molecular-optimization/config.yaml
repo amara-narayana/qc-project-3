@@ -1,0 +1,48 @@
+# Default configuration for Quantum Molecular Optimization
+# Override by creating config.local.yaml
+
+# Molecule settings
+molecule:
+  name: "H2"           # Options: H2, LiH, BeH2
+  basis: "sto3g"       # Options: sto3g, 631g, cc-pvdz, etc.
+  bond_distance: 0.74  # Angstroms - equilibrium distance for H2
+  
+# Bond scanning (for potential energy curve)
+scan:
+  enabled: false
+  min_distance: 0.5    # Angstroms
+  max_distance: 2.0    # Angstroms
+  num_points: 16       # Number of bond distances to evaluate
+
+# VQE settings
+vqe:
+  ansatz: "EfficientSU2"   # Options: EfficientSU2, UCCSD, TwoLocal
+  reps: 1                   # Number of repetitions in ansatz
+  entanglement: "linear"    # Options: linear, full, circular
+  optimizer: "COBYLA"       # Options: COBYLA, SPSA, SLSQP, L_BFGS_B
+  max_iterations: 100
+  initial_point: null       # null = random initialization
+  
+# Simulator settings
+simulator:
+  shots: 1024               # Number of measurement shots (null for exact)
+  seed: 42                  # Random seed for reproducibility
+  
+# Noise settings
+noise:
+  enabled: false
+  model: "default"          # Options: default, custom
+  depolarizing_error: 0.001
+  readout_error: 0.01
+  
+# Error mitigation
+error_mitigation:
+  enabled: false
+  method: "measurement"     # Options: measurement, zne (zero-noise extrapolation)
+  
+# Output settings
+output:
+  save_results: true
+  save_figures: true
+  verbose: true
+  log_level: "INFO"         # Options: DEBUG, INFO, WARNING, ERROR
